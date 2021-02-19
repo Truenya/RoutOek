@@ -10,7 +10,8 @@ RouteOekRout: интерфейс загрузки путей из файлов .
 # include "ReadOekRout.h"
 using namespace  std;
 
-int main(){
+int main()
+{
     ReadRout reader;
     oek_types_on_rout types = reader.getTypes();
     if(reader.load_from_file("route_17_42.oek"))
