@@ -9,7 +9,6 @@ RouteOekRout: интерфейс загрузки путей из файлов .
 Пример использования:
 # include "ReadOekRout.h"
 using namespace  std;
-
 int main()
 {
     ReadRout reader;
