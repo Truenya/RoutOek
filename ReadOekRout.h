@@ -5,13 +5,12 @@ class ReadRout
     oek_rout mRout;
     oek_rout mVCU;
     bool file_loaded = false;
-    bool use_formatting = false;
+    bool use_formatting = true;
     csv::CSVFormat mFormat;
 public:
-
+    void set_formatting(bool);
     bool load_from_file();
     bool load_from_file(std::string);
-    bool load_from_file(std::string,fileType);
     /**
      * @brief getFullRout
      * @return std::vector<OekPoint> получает полный путь без ВЦУ.

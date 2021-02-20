@@ -80,6 +80,11 @@ auto ReadRout::makeFileSaver(std::string filename,std::ofstream ss)
     return mWriter;
 }
 
+void ReadRout::set_formatting(bool fmt)
+{
+    use_formatting = fmt;
+}
+
 bool ReadRout::load_from_file()
 {
     std::string filename = "route.oek";
@@ -108,15 +113,13 @@ bool ReadRout::load_from_file(std::string filepath)
             }
         } else//use formatting
         {
-            csv::CSVReader reader(filepath,mFormat);
+            mFormat = csv::CSVFormat::guess_csv();
+
             mFormat.column_names(default_col_names);
-            if ((reader.begin()++)->size()==17)
-            {
-                use_formatting=false;
-                if(load_from_file(filepath))
-                    return true;
-                return false;
-            }
+            mFormat.delimiter(';');
+            mFormat.variable_columns(csv::VariableColumnPolicy::KEEP);
+
+            csv::CSVReader reader(filepath,mFormat);
             int row_size = (++reader.begin())->size();//0,5,12,13
             for (auto& row: reader)
             {
@@ -124,20 +127,20 @@ bool ReadRout::load_from_file(std::string filepath)
                 {
                     OekPoint *point = new OekPoint;
                     auto field = row.begin();
-                        (*point)[sId] = field->get<int>();//sid
+                        (*point)[sId]       = field->get<int>();//sid
                             field++;
-                        (*point)[oek_time] = field->get<int>();//time
+                        (*point)[oek_time]  = field->get<int>();//time
                             field++;
-                        (*point)[Az] = field->get<double>();//az
+                        (*point)[Az]        = field->get<double>();//az
                             field++;
-                        (*point)[El] = field->get<double>();//el
+                        (*point)[El]        = field->get<double>();//el
                     mVCU.push_back(*point);
                     delete point;
                 }
                 else
                 {
                     OekPoint *point = new OekPoint;
-                    for(int i = 0; i<row_size;i++)
+                    for(int i = 0; i<row.size();i++)
                     {
                         (*point)[default_col_names[i]] = row[i].get<double>();
                     }
@@ -150,15 +153,6 @@ bool ReadRout::load_from_file(std::string filepath)
         file_loaded = true;
         return true;
     }
-    return false;
+    return true;
 }
 
-bool ReadRout::load_from_file(std::string filepath, fileType Type)
-{
-    if (Type==oek)
-        if(load_from_file(filepath))
-            return true;
-    else
-        return true; // load gps
-    return false;
-}

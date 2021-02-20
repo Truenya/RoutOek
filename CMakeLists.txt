@@ -5,7 +5,7 @@ set(CSV_CXX_STANDARD 17)
 #set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 #set(CMAKE_C_COMPILER "/usr/bin/clang")
 add_compile_options(
-  "-Wall" "-Wpedantic" "-Wextra" "-fexceptions"
+  "-Wall" "-Wpedantic" "-Wextra" "-fPIC"
   "$<$<CONFIG:DEBUG>:-O0;-g3;-ggdb>"
 )
 
@@ -15,5 +15,13 @@ add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-std=c++17> $<$<COMPILE_LANGUAGE:C
 
 # ...
 
-add_library(ReadOekRout  ReadOekRout.cpp ReadOekRout.h RoutIncludes.h)# test.cpp kf1_dimension.cpp kf1_dimension.h ./csv-parser/include/csv.hpp )
+add_library(ReadOekRout SHARED ReadOekRout.cpp ReadOekRout.h RoutIncludes.h)
 target_link_libraries(ReadOekRout csv pthread )
+
+
+install(FILES ReadOekRout.h RoutIncludes.h
+        DESTINATION /usr/include/
+        )
+install(FILES libReadOekRout.so csv-parser/include/internal/libcsv.so
+        DESTINATION /usr/lib/
+        )

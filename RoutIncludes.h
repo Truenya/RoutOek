@@ -2,9 +2,8 @@
 #define ROUTINCLUDES_H
 #include <set>
 #include <map>
-#include "../csv-parser/include/csv.hpp"
+#include "csv-parser/include/csv.hpp"
 #include <math.h>
-#include "kf1_dimension.h"
 
 typedef std::map<std::string,double> OekPoint;
 typedef std::vector<OekPoint> oek_rout;
