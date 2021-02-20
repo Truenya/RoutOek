@@ -1,12 +1,16 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt pthread
 #TEMPLATE=lib
 #CONFIG+= staticlib
-LIBS +=  -lpthread
+LIBS +=  -lpthread -lcsv
 SOURCES += \
         ReadOekRout.cpp \
+        test.cpp \
+
+HEADERS += \
         ReadOekRout.h \
-        test.cpp
+        "csv-parser/include/csv.hpp" \
+
 
