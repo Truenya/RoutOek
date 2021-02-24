@@ -1,5 +1,12 @@
 #include "ReadOekRout.h"
 
+ReadRout::ReadRout()
+{
+    mFormat = csv::CSVFormat::guess_csv();
+    file_loaded = false;
+    use_formatting = true;
+}
+
 oek_rout ReadRout::getFullRout()
 {
     load_from_file();
@@ -9,6 +16,13 @@ oek_rout ReadRout::getFullRout()
 oek_rout ReadRout::getVCU()
 {
     load_from_file();
+    return mVCU;
+}
+
+oek_rout ReadRout::getVCU(std::string filepath)
+{
+    file_loaded = false;
+    load_from_file(filepath);
     return mVCU;
 }
 
@@ -31,6 +45,14 @@ oek_routs ReadRout::getRoutsByType(int typo)
     return routs_by_type;
 }
 
+oek_routs ReadRout::getRoutsByType(int typo, std::string filepath)
+{
+    file_loaded = false;
+    if(load_from_file(filepath))
+        return getRoutsByType(typo);
+    throw;
+}
+
 oek_rout ReadRout::getRoutByType(int typo)
 {
     load_from_file();
@@ -39,6 +61,14 @@ oek_rout ReadRout::getRoutByType(int typo)
         if(point["type_id"] == typo)
             rout_by_type.push_back(point);
     return rout_by_type;
+}
+
+oek_rout ReadRout::getRoutByType(int typo, std::string filepath)
+{
+    file_loaded = false;
+    if(load_from_file(filepath))
+        return getRoutByType(typo);
+    throw;
 }
 
 oek_types_on_rout ReadRout::getTypes()
@@ -51,6 +81,14 @@ oek_types_on_rout ReadRout::getTypes()
     for (auto& unic_type:setTypes)
         types.push_back(unic_type);
     return types;
+}
+
+oek_types_on_rout ReadRout::getTypes(std::string filepath)
+{
+    file_loaded = false;
+    if(load_from_file(filepath))
+        return getTypes();
+    throw;
 }
 
 bool ReadRout::saveToFile(oek_rout rout_to_save)
@@ -85,6 +123,24 @@ void ReadRout::set_formatting(bool fmt)
     use_formatting = fmt;
 }
 
+bool ReadRout::load_new_file(std::string file)
+{
+    file_loaded = false;
+    if(load_from_file(file))
+        return true;
+    return false;
+}
+
+csv::CSVFormat ReadRout::Format() const
+{
+    return mFormat;
+}
+
+void ReadRout::setFormat(const csv::CSVFormat &format)
+{
+    mFormat = format;
+}
+
 bool ReadRout::load_from_file()
 {
     std::string filename = "route.oek";
@@ -113,16 +169,18 @@ bool ReadRout::load_from_file(std::string filepath)
             }
         } else//use formatting
         {
-            mFormat = csv::CSVFormat::guess_csv();
+
 
             mFormat.column_names(default_col_names);
             mFormat.delimiter(';');
             mFormat.variable_columns(csv::VariableColumnPolicy::KEEP);
 
             csv::CSVReader reader(filepath,mFormat);
-            int row_size = (++reader.begin())->size();//0,5,12,13
+            int row_size = (++(reader.begin()))->size();//0,5,12,13
             for (auto& row: reader)
             {
+                if(row.size()==3)
+                    continue;
                 if(row.size()==4)
                 {
                     OekPoint *point = new OekPoint;
@@ -139,6 +197,16 @@ bool ReadRout::load_from_file(std::string filepath)
                 }
                 else
                 {
+                    if(row_size==7 || row_size==6)
+                    {
+                        OekPoint *point = new OekPoint;
+                        for(int i = 0; i<row.size();i++)
+                        {
+                            (*point)[default_gps_col_names[i]] = row[i].get<double>();
+                        }
+                        mRout.push_back(*point);
+                    }
+
                     OekPoint *point = new OekPoint;
                     for(int i = 0; i<row.size();i++)
                     {
@@ -156,3 +224,12 @@ bool ReadRout::load_from_file(std::string filepath)
     return true;
 }
 
+oek_rout ReadRout::getFullRout(std::string filePath)
+{
+    file_loaded = false;
+    if(load_from_file(filePath))
+    {
+        return mRout;
+    }
+    throw;
+}

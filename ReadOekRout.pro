@@ -1,13 +1,13 @@
-TEMPLATE = app
+#TEMPLATE = app
 CONFIG += console c++17
 CONFIG -= app_bundle
 CONFIG -= qt pthread
-#TEMPLATE=lib
-#CONFIG+= staticlib
+TEMPLATE=lib
+CONFIG+= lib
 LIBS +=  -lpthread -lcsv
 SOURCES += \
         ReadOekRout.cpp \
-        test.cpp \
+      #  test.cpp \
 
 HEADERS += \
         ReadOekRout.h \
