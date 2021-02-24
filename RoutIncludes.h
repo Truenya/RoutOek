@@ -27,10 +27,19 @@ typedef std::vector <int> oek_types_on_rout;
 #define indxcam "indxcam"
 #define indxframe "indxframe"
 #define objectmethod "objectmethod"
+
+#define latitude "latitude"
+#define longitude "longitude"
+#define altitude "altitude"
+#define heading "heading"
+#define speed "speed"
+#define btracking "btracking"
+
 enum fileType
 {
     gps,
     oek
 };
 const std::vector <std::string> default_col_names={sId,type_id,coordX,coordY,coordH,oek_time,cam_focus,size_pix,frame_width,frame_x,frame_y,frame_height,Az,El,indxcam,indxframe,objectmethod};
+const std::vector <std::string> default_gps_col_names = {latitude,longitude,altitude,heading,speed,btracking,oek_time};
 #endif // ROUTINCLUDES_H
