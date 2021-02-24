@@ -2,7 +2,6 @@
 
 ReadRout::ReadRout()
 {
-    mFormat = csv::CSVFormat::guess_csv();
     file_loaded = false;
     use_formatting = true;
 }
@@ -131,15 +130,6 @@ bool ReadRout::load_new_file(std::string file)
     return false;
 }
 
-csv::CSVFormat ReadRout::Format() const
-{
-    return mFormat;
-}
-
-void ReadRout::setFormat(const csv::CSVFormat &format)
-{
-    mFormat = format;
-}
 
 bool ReadRout::load_from_file()
 {
@@ -171,6 +161,8 @@ bool ReadRout::load_from_file(std::string filepath)
         {
 
 
+
+            csv::CSVFormat mFormat = csv::CSVFormat::guess_csv();
             mFormat.column_names(default_col_names);
             mFormat.delimiter(';');
             mFormat.variable_columns(csv::VariableColumnPolicy::KEEP);

@@ -4,16 +4,13 @@ class ReadRout
 {
     oek_rout mRout;
     oek_rout mVCU;
-    bool file_loaded;
-    bool use_formatting;
-    csv::CSVFormat mFormat;
+    bool file_loaded = false;
+    bool use_formatting = true;
     bool load_from_file();
     bool load_from_file(std::string);
 public:
     ReadRout();
     void set_formatting(bool);
-
-
     bool load_new_file(std::string);
     /**
      * @brief getFullRout
@@ -84,7 +81,4 @@ public:
      * @return Объект записи пути.
      */
     auto makeFileSaver(std::string,std::ofstream);
-
-    csv::CSVFormat Format() const;
-    void setFormat(const csv::CSVFormat &format);
 };

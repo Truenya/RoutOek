@@ -10,36 +10,36 @@ typedef std::vector<OekPoint> oek_rout;
 typedef std::vector <oek_rout> oek_routs;
 typedef std::vector <int> oek_types_on_rout;
 // Defines for better coding
-#define sId "sId"
-#define type_id "type_id"
-#define coordX "coordX"
-#define coordY "coordY"
-#define coordH "coordH"
-#define oek_time "time"
-#define cam_focus "cam_focus"
-#define size_pix "size_pix"
-#define frame_width "frame_width"
-#define frame_x "frame_x"
-#define frame_y "frame_y"
-#define frame_height "frame_height"
-#define Az "Az"
-#define El "El"
-#define indxcam "indxcam"
-#define indxframe "indxframe"
-#define objectmethod "objectmethod"
+#define SID "sId"
+#define TYPE_ID "type_id"
+#define COORDX "coordX"
+#define COORDY "coordY"
+#define COORDH "coordH"
+#define OEK_TIME "time"
+#define CAM_FOCUS "cam_focus"
+#define SIZE_PIX "size_pix"
+#define FRAME_WIDTH "frame_width"
+#define FRAME_X "frame_x"
+#define FRAME_Y "frame_y"
+#define FRAME_HEIGHT "frame_height"
+#define AZ "Az"
+#define EL "El"
+#define INDXCAM "indxcam"
+#define INDXFRAME "indxframe"
+#define OBJECTMETHOD "objectmethod"
 
-#define latitude "latitude"
-#define longitude "longitude"
-#define altitude "altitude"
-#define heading "heading"
-#define speed "speed"
-#define btracking "btracking"
+#define LATITUDE "latitude"
+#define LONGITUDE "longitude"
+#define ALTITUDE "altitude"
+#define HEADING "heading"
+#define SPEED "speed"
+#define BTRACKING "btracking"
 
 enum fileType
 {
     gps,
     oek
 };
-const std::vector <std::string> default_col_names={sId,type_id,coordX,coordY,coordH,oek_time,cam_focus,size_pix,frame_width,frame_x,frame_y,frame_height,Az,El,indxcam,indxframe,objectmethod};
-const std::vector <std::string> default_gps_col_names = {latitude,longitude,altitude,heading,speed,btracking,oek_time};
+const std::vector <std::string> default_col_names={SID,TYPE_ID,COORDX,COORDY,COORDH,OEK_TIME,CAM_FOCUS,SIZE_PIX,FRAME_WIDTH,FRAME_X,FRAME_Y,FRAME_HEIGHT,AZ,EL,INDXCAM,INDXFRAME,OBJECTMETHOD};
+const std::vector <std::string> default_gps_col_names = {LATITUDE,LONGITUDE,ALTITUDE,HEADING,SPEED,BTRACKING,OEK_TIME};
 #endif // ROUTINCLUDES_H
