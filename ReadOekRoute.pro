@@ -6,11 +6,11 @@ TEMPLATE=lib
 CONFIG+= lib
 LIBS +=  -lpthread -lcsv
 SOURCES += \
-        ReadOekRout.cpp \
+        ReadOekRoute.cpp \
       #  test.cpp \
 
 HEADERS += \
-        ReadOekRout.h \
+        ReadOekRoute.h \
         "csv-parser/include/csv.hpp" \
 
 

@@ -6,9 +6,9 @@
 #include <math.h>
 
 typedef std::map<std::string,double> OekPoint;
-typedef std::vector<OekPoint> oek_rout;
-typedef std::vector <oek_rout> oek_routs;
-typedef std::vector <int> oek_types_on_rout;
+typedef std::vector<OekPoint> oek_route;
+typedef std::vector <oek_route> oek_routes;
+typedef std::vector <int> oek_types_on_route;
 // Defines for better coding
 #define SID "sId"
 #define TYPE_ID "type_id"
@@ -42,4 +42,4 @@ enum fileType
 };
 const std::vector <std::string> default_col_names={SID,TYPE_ID,COORDX,COORDY,COORDH,OEK_TIME,CAM_FOCUS,SIZE_PIX,FRAME_WIDTH,FRAME_X,FRAME_Y,FRAME_HEIGHT,AZ,EL,INDXCAM,INDXFRAME,OBJECTMETHOD};
 const std::vector <std::string> default_gps_col_names = {LATITUDE,LONGITUDE,ALTITUDE,HEADING,SPEED,BTRACKING,OEK_TIME};
-#endif // ROUTINCLUDES_H
+#endif // ROUTEINCLUDES_H

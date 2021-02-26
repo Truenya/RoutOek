@@ -1,84 +1,97 @@
-﻿#include "RoutIncludes.h"
+#include "RouteIncludes.h"
 
-class ReadRout
+class ReadRoute
 {
-    oek_rout mRout;
-    oek_rout mVCU;
+    oek_route mRoute;
+    oek_route mVCU;
     bool file_loaded = false;
     bool use_formatting = true;
     bool load_from_file();
     bool load_from_file(std::string);
 public:
-    ReadRout();
     void set_formatting(bool);
     bool load_new_file(std::string);
     /**
-     * @brief getFullRout
+     * @brief getFullRoute
      * @param filepath абсолютный или относительный путь к файлу
      * @return std::vector<OekPoint> получает полный путь без ВЦУ.
      */
-    oek_rout getFullRout(std::string);
+    oek_route getFullRoute(std::string);
     /**
-     * @brief getFullRout
+     * @brief getFullRoute
      * @return std::vector<OekPoint> получает полный путь без ВЦУ.
      */
-    oek_rout getFullRout();
+    oek_route getFullRoute();
+    /**
+     * @brief getMainRoute
+     * @param filepath абсолютный или относительный путь к файлу
+     * @return oek_route маршрут, составленный из всех точек, по данному типу
+     */
+    oek_route getMainRoute(std::string);
+    /**
+     * @brief getMainRoute
+     * @return oek_route маршрут, составленный из всех точек, по типу с максимальным количеством отметок
+     */
+    oek_route getMainRoute();
     /**
      * @brief getVCU
      * @return std::vector<OekPoint> получает ВЦУ.
      */
-    oek_rout getVCU();
+    oek_route getVCU();
     /**
      * @brief getVCU
      * @param filepath абсолютный или относительный путь к файлу
      * @return std::vector<OekPoint> получает ВЦУ.
      */
-    oek_rout getVCU(std::string);
+    oek_route getVCU(std::string);
     /**
-     * @brief getRoutsByType
+     * @brief getRoutesByType
      * @param int type_id
-     * @return oek_routs вектор отрезков маршрута, где  опознавался данный тип
+     * @return oek_routes вектор отрезков маршрута, где  опознавался данный тип
      */
-    oek_routs getRoutsByType(int);
+    oek_routes getRoutesByType(int);
     /**
-     * @brief getRoutsByType
-     * @param int type_id
-     * @param filepath абсолютный или относительный путь к файлу
-     * @return oek_routs вектор отрезков маршрута, где  опознавался данный тип
-     */
-    oek_routs getRoutsByType(int, std::string);
-    /**
-     * @brief getRoutByType
-     * @param int type_id
-     * @return oek_rout маршрут, составленный из всех точек, по данному типу
-     */
-    oek_rout getRoutByType(int);
-    /**
-     * @brief getRoutByType
+     * @brief getRoutesByType
      * @param int type_id
      * @param filepath абсолютный или относительный путь к файлу
-     * @return oek_rout маршрут, составленный из всех точек, по данному типу
+     * @return oek_routes вектор отрезков маршрута, где  опознавался данный тип
      */
-    oek_rout getRoutByType(int, std::string);
+    oek_routes getRoutesByType(int, std::string);
+    /**
+     * @brief getRouteByType
+     * @param int type_id
+     * @return oek_route маршрут, составленный из всех точек, по данному типу
+     */
+    oek_route getRouteByType(int);
+    /**
+     * @brief getRouteByType
+     * @param int type_id
+     * @param filepath абсолютный или относительный путь к файлу
+     * @return oek_route маршрут, составленный из всех точек, по данному типу
+     */
+    oek_route getRouteByType(int, std::string);
     /**
      * @brief getTypes
      * @return std::vector <int> вектор типов, представленных в загруженном пути.
      */
-    oek_types_on_rout getTypes();
+    oek_types_on_route getTypes();
     /**
      * @brief getTypes
      * @param filepath абсолютный или относительный путь к файлу
      * @return std::vector <int> вектор типов, представленных в загруженном пути.
      */
-    oek_types_on_rout getTypes(std::string);
+    oek_types_on_route getTypes(std::string);
+};
 
-    bool saveToFile(oek_rout);
+class WriteRoute
+{
+    bool saveToFile(oek_route);
     /**
-     * @brief ReadRout::makeFileSaver
+     * @brief ReadRoute::makeFileSaver
      * @param filename путь к файлу
      * @param ss файлстрим, используемый для записи
      * @details Используется как cout, принимает на вход std {array,tuple,list,vector}// saver << container;
      * @return Объект записи пути.
      */
-    auto makeFileSaver(std::string,std::ofstream);
+    static auto makeFileSaver(std::string,std::ofstream);
 };
